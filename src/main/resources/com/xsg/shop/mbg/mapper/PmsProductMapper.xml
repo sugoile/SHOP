@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsg.shop.mbg.mapper.PmsProductMapper">
+  <resultMap id="BaseResultMap" type="com.xsg.shop.mbg.model.PmsProduct">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="classify_id" jdbcType="BIGINT" property="classifyId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product_number" jdbcType="BIGINT" property="productNumber" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="publish_statu" jdbcType="INTEGER" property="publishStatu" />
+    <result column="new_status" jdbcType="INTEGER" property="newStatus" />
+    <result column="recommand_status" jdbcType="INTEGER" property="recommandStatus" />
+    <result column="verify_status" jdbcType="INTEGER" property="verifyStatus" />
+    <result column="move_bin" jdbcType="INTEGER" property="moveBin" />
+    <result column="preview_status" jdbcType="INTEGER" property="previewStatus" />
+    <result column="sale" jdbcType="INTEGER" property="sale" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="sub_title" jdbcType="VARCHAR" property="subTitle" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="album_pics" jdbcType="VARCHAR" property="albumPics" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="gift_point" jdbcType="INTEGER" property="giftPoint" />
+    <result column="gift_growth" jdbcType="INTEGER" property="giftGrowth" />
+    <result column="discount_type" jdbcType="VARCHAR" property="discountType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xsg.shop.mbg.model.PmsProduct">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, brand_id, classify_id, name, product_number, picture, publish_statu, new_status, 
+    recommand_status, verify_status, move_bin, preview_status, sale, price, sub_title, 
+    stock, unit, weight, keywords, album_pics, service, gift_point, gift_growth, discount_type
+  </sql>
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xsg.shop.mbg.model.PmsProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xsg.shop.mbg.model.PmsProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pms_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pms_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pms_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xsg.shop.mbg.model.PmsProductExample">
+    delete from pms_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xsg.shop.mbg.model.PmsProduct">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pms_product (brand_id, classify_id, name, 
+      product_number, picture, publish_statu, 
+      new_status, recommand_status, verify_status, 
+      move_bin, preview_status, sale, 
+      price, sub_title, stock, 
+      unit, weight, keywords, 
+      album_pics, service, gift_point, 
+      gift_growth, discount_type, description
+      )
+    values (#{brandId,jdbcType=BIGINT}, #{classifyId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{productNumber,jdbcType=BIGINT}, #{picture,jdbcType=VARCHAR}, #{publishStatu,jdbcType=INTEGER}, 
+      #{newStatus,jdbcType=INTEGER}, #{recommandStatus,jdbcType=INTEGER}, #{verifyStatus,jdbcType=INTEGER}, 
+      #{moveBin,jdbcType=INTEGER}, #{previewStatus,jdbcType=INTEGER}, #{sale,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{subTitle,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, 
+      #{unit,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, #{keywords,jdbcType=VARCHAR}, 
+      #{albumPics,jdbcType=VARCHAR}, #{service,jdbcType=VARCHAR}, #{giftPoint,jdbcType=INTEGER}, 
+      #{giftGrowth,jdbcType=INTEGER}, #{discountType,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xsg.shop.mbg.model.PmsProduct">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pms_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="productNumber != null">
+        product_number,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="publishStatu != null">
+        publish_statu,
+      </if>
+      <if test="newStatus != null">
+        new_status,
+      </if>
+      <if test="recommandStatus != null">
+        recommand_status,
+      </if>
+      <if test="verifyStatus != null">
+        verify_status,
+      </if>
+      <if test="moveBin != null">
+        move_bin,
+      </if>
+      <if test="previewStatus != null">
+        preview_status,
+      </if>
+      <if test="sale != null">
+        sale,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="subTitle != null">
+        sub_title,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="albumPics != null">
+        album_pics,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="giftPoint != null">
+        gift_point,
+      </if>
+      <if test="giftGrowth != null">
+        gift_growth,
+      </if>
+      <if test="discountType != null">
+        discount_type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="brandId != null">
+        #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null">
+        #{productNumber,jdbcType=BIGINT},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="publishStatu != null">
+        #{publishStatu,jdbcType=INTEGER},
+      </if>
+      <if test="newStatus != null">
+        #{newStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recommandStatus != null">
+        #{recommandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="verifyStatus != null">
+        #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="moveBin != null">
+        #{moveBin,jdbcType=INTEGER},
+      </if>
+      <if test="previewStatus != null">
+        #{previewStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="subTitle != null">
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="albumPics != null">
+        #{albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPoint != null">
+        #{giftPoint,jdbcType=INTEGER},
+      </if>
+      <if test="giftGrowth != null">
+        #{giftGrowth,jdbcType=INTEGER},
+      </if>
+      <if test="discountType != null">
+        #{discountType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xsg.shop.mbg.model.PmsProductExample" resultType="java.lang.Long">
+    select count(*) from pms_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pms_product
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.brandId != null">
+        brand_id = #{record.brandId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classifyId != null">
+        classify_id = #{record.classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNumber != null">
+        product_number = #{record.productNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.picture != null">
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishStatu != null">
+        publish_statu = #{record.publishStatu,jdbcType=INTEGER},
+      </if>
+      <if test="record.newStatus != null">
+        new_status = #{record.newStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.recommandStatus != null">
+        recommand_status = #{record.recommandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.verifyStatus != null">
+        verify_status = #{record.verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.moveBin != null">
+        move_bin = #{record.moveBin,jdbcType=INTEGER},
+      </if>
+      <if test="record.previewStatus != null">
+        preview_status = #{record.previewStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sale != null">
+        sale = #{record.sale,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.subTitle != null">
+        sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.keywords != null">
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.albumPics != null">
+        album_pics = #{record.albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="record.service != null">
+        service = #{record.service,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftPoint != null">
+        gift_point = #{record.giftPoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.giftGrowth != null">
+        gift_growth = #{record.giftGrowth,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountType != null">
+        discount_type = #{record.discountType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update pms_product
+    set id = #{record.id,jdbcType=BIGINT},
+      brand_id = #{record.brandId,jdbcType=BIGINT},
+      classify_id = #{record.classifyId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      product_number = #{record.productNumber,jdbcType=BIGINT},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      publish_statu = #{record.publishStatu,jdbcType=INTEGER},
+      new_status = #{record.newStatus,jdbcType=INTEGER},
+      recommand_status = #{record.recommandStatus,jdbcType=INTEGER},
+      verify_status = #{record.verifyStatus,jdbcType=INTEGER},
+      move_bin = #{record.moveBin,jdbcType=INTEGER},
+      preview_status = #{record.previewStatus,jdbcType=INTEGER},
+      sale = #{record.sale,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      stock = #{record.stock,jdbcType=INTEGER},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      album_pics = #{record.albumPics,jdbcType=VARCHAR},
+      service = #{record.service,jdbcType=VARCHAR},
+      gift_point = #{record.giftPoint,jdbcType=INTEGER},
+      gift_growth = #{record.giftGrowth,jdbcType=INTEGER},
+      discount_type = #{record.discountType,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pms_product
+    set id = #{record.id,jdbcType=BIGINT},
+      brand_id = #{record.brandId,jdbcType=BIGINT},
+      classify_id = #{record.classifyId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      product_number = #{record.productNumber,jdbcType=BIGINT},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      publish_statu = #{record.publishStatu,jdbcType=INTEGER},
+      new_status = #{record.newStatus,jdbcType=INTEGER},
+      recommand_status = #{record.recommandStatus,jdbcType=INTEGER},
+      verify_status = #{record.verifyStatus,jdbcType=INTEGER},
+      move_bin = #{record.moveBin,jdbcType=INTEGER},
+      preview_status = #{record.previewStatus,jdbcType=INTEGER},
+      sale = #{record.sale,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      stock = #{record.stock,jdbcType=INTEGER},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      album_pics = #{record.albumPics,jdbcType=VARCHAR},
+      service = #{record.service,jdbcType=VARCHAR},
+      gift_point = #{record.giftPoint,jdbcType=INTEGER},
+      gift_growth = #{record.giftGrowth,jdbcType=INTEGER},
+      discount_type = #{record.discountType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xsg.shop.mbg.model.PmsProduct">
+    update pms_product
+    <set>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="classifyId != null">
+        classify_id = #{classifyId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumber != null">
+        product_number = #{productNumber,jdbcType=BIGINT},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="publishStatu != null">
+        publish_statu = #{publishStatu,jdbcType=INTEGER},
+      </if>
+      <if test="newStatus != null">
+        new_status = #{newStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recommandStatus != null">
+        recommand_status = #{recommandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="verifyStatus != null">
+        verify_status = #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="moveBin != null">
+        move_bin = #{moveBin,jdbcType=INTEGER},
+      </if>
+      <if test="previewStatus != null">
+        preview_status = #{previewStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="subTitle != null">
+        sub_title = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="albumPics != null">
+        album_pics = #{albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="giftPoint != null">
+        gift_point = #{giftPoint,jdbcType=INTEGER},
+      </if>
+      <if test="giftGrowth != null">
+        gift_growth = #{giftGrowth,jdbcType=INTEGER},
+      </if>
+      <if test="discountType != null">
+        discount_type = #{discountType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xsg.shop.mbg.model.PmsProduct">
+    update pms_product
+    set brand_id = #{brandId,jdbcType=BIGINT},
+      classify_id = #{classifyId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      product_number = #{productNumber,jdbcType=BIGINT},
+      picture = #{picture,jdbcType=VARCHAR},
+      publish_statu = #{publishStatu,jdbcType=INTEGER},
+      new_status = #{newStatus,jdbcType=INTEGER},
+      recommand_status = #{recommandStatus,jdbcType=INTEGER},
+      verify_status = #{verifyStatus,jdbcType=INTEGER},
+      move_bin = #{moveBin,jdbcType=INTEGER},
+      preview_status = #{previewStatus,jdbcType=INTEGER},
+      sale = #{sale,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      album_pics = #{albumPics,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      gift_point = #{giftPoint,jdbcType=INTEGER},
+      gift_growth = #{giftGrowth,jdbcType=INTEGER},
+      discount_type = #{discountType,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xsg.shop.mbg.model.PmsProduct">
+    update pms_product
+    set brand_id = #{brandId,jdbcType=BIGINT},
+      classify_id = #{classifyId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      product_number = #{productNumber,jdbcType=BIGINT},
+      picture = #{picture,jdbcType=VARCHAR},
+      publish_statu = #{publishStatu,jdbcType=INTEGER},
+      new_status = #{newStatus,jdbcType=INTEGER},
+      recommand_status = #{recommandStatus,jdbcType=INTEGER},
+      verify_status = #{verifyStatus,jdbcType=INTEGER},
+      move_bin = #{moveBin,jdbcType=INTEGER},
+      preview_status = #{previewStatus,jdbcType=INTEGER},
+      sale = #{sale,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      unit = #{unit,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=DECIMAL},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      album_pics = #{albumPics,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      gift_point = #{giftPoint,jdbcType=INTEGER},
+      gift_growth = #{giftGrowth,jdbcType=INTEGER},
+      discount_type = #{discountType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

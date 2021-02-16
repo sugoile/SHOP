@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsg.shop.dao.UserAdminRelationDao">
+    <select id="getPermissionList" resultType="com.xsg.shop.mbg.model.UmsPermission">
+        select up.*
+        FROM ums_admin ua
+                 LEFT JOIN ums_admin_role_relation uarr ON uarr.admin_id = ua.id
+                 LEFT JOIN ums_role ur ON ur.id = uarr.role_id
+                 LEFT JOIN ums_role_permission_relation urpr ON urpr.role_id = ur.id
+                 LEFT JOIN ums_permission up on up.id = urpr.permission_id
+        where ua.id = #{id}
+    </select>
+
+    <select id="getroleByadmin" resultType="com.xsg.shop.mbg.model.UmsRole">
+        SELECT ur.*
+        FROM ums_admin_role_relation ua
+                 LEFT JOIN ums_role ur on ua.role_id = ur.id
+        WHERE ua.admin_id = #{id}
+    </select>
+
+    <select id="getPermissionByRoleId" resultType="com.xsg.shop.mbg.model.UmsPermission">
+        SELECT up.*
+        FROM
+             ums_role_permission_relation urpr
+                 LEFT JOIN ums_permission up on urpr.permission_id = up.id
+        WHERE role_id = #{id}
+    </select>
+</mapper>
